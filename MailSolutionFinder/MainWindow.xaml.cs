@@ -12,17 +12,118 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+
+using ARSoft.Tools.Net.Dns;
+using DnsClient;
+using Newtonsoft.Json;
 
 namespace MailSolutionFinder
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    ///
+
+    public class MxMappings
+    {
+        public List<MxMapping> mappings = new List<MxMapping>();
+    }
+
+    public class MxMapping
+    {
+        public string recordmatch = "";
+        public string provider = "";
+    }
+
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var mappings = new MxMappings()
+            {
+                mappings = new List<MxMapping>()
+                {
+                    new MxMapping()
+                    {
+                        recordmatch = "recordmatch", provider = "provider"
+                    },
+                },
+            };
+
+            Console.WriteLine(JsonConvert.SerializeObject(mappings, Formatting.Indented));
+
+            try
+            {
+                string contents = "";
+                using (var wc = new System.Net.WebClient())
+                    contents = wc.DownloadString("https://gist.githubusercontent.com/Lillecarl/a9fbc10c8bdefcb5eef322825d4bdce7/raw/mxtoprovider.json");
+
+                Console.WriteLine("Online Mappings:");
+                Console.WriteLine(contents);
+
+                mappings = JsonConvert.DeserializeObject<MxMappings>(contents);
+            }
+            catch
+            { }
+
+            resulttextbox.Text = "";
+
+            var lookup = new LookupClient(IPAddress.Parse("8.8.8.8"))
+            {
+                Timeout = new System.TimeSpan(0, 0, 3),
+                UseCache = false,
+                EnableAuditTrail = true,
+            };
+
+            var address = mailaddrbox.Text;
+
+            if (address.Contains("@"))
+            {
+                int idx = address.IndexOf("@");
+                address = address.Substring(idx + 1, address.Length - idx - 1);
+            }
+            Console.WriteLine("Lookup address: {0}", address);
+            var result = lookup.Query(address, QueryType.ANY);
+
+            Console.WriteLine(result.AuditTrail);
+
+            if (result.HasError)
+                resulttextbox.Text += result.ErrorMessage + Environment.NewLine;
+
+            foreach (var i in result.Answers.MxRecords())
+            {
+                string value = i.Exchange.ToString().ToLower();
+
+                resulttextbox.Text += string.Format("{0} MX has value {1} ", address, value);
+
+                foreach (var j in mappings.mappings)
+                    if (value.Contains(j.provider.ToLower()))
+                        resulttextbox.Text += string.Format("({0}) ", j.provider);
+
+                resulttextbox.Text += Environment.NewLine;
+            }
+
+            /*foreach (var i in result.Answers.TxtRecords())
+            {
+                foreach (var value in i.Text)
+                {
+                    resulttextbox.Text += string.Format("{0} SPF has value {1} ", address, value);
+
+                    if (value.Contains("spf.protection.outlook.com"))
+                        resulttextbox.Text += "(Office365)";
+
+                    if (value.Contains("googlemail.com") || value.Contains("google.com"))
+                        resulttextbox.Text += "(Google Apps)";
+
+                    resulttextbox.Text += Environment.NewLine;
+                }
+            }*/
         }
     }
 }
