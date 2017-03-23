@@ -1,0 +1,16 @@
+{
+  "mappings": [
+    {
+      "recordmatch": "mail.protection.outlook.com",
+      "provider": "(Office365"
+    },
+    {
+      "recordmatch": "googlemail.com",
+      "provider": "Gmail / Google Apps"
+    },
+    {
+      "recordmatch": "loopia.se",
+      "provider": "Loopia"
+    }
+  ]
+}
