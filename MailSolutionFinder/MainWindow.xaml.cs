@@ -56,21 +56,18 @@ namespace MailSolutionFinder
                 },
             };
 
-            Console.WriteLine(JsonConvert.SerializeObject(mappings, Formatting.Indented));
-
             try
             {
                 string contents = "";
                 using (var wc = new System.Net.WebClient())
-                    contents = wc.DownloadString("https://gist.githubusercontent.com/Lillecarl/a9fbc10c8bdefcb5eef322825d4bdce7/raw/mxtoprovider.json");
-
-                Console.WriteLine("Online Mappings:");
-                Console.WriteLine(contents);
+                    contents = wc.DownloadString("https://raw.githubusercontent.com/Lillecarl/MxToProvider/master/mxtoprovider.json");
 
                 mappings = JsonConvert.DeserializeObject<MxMappings>(contents);
             }
             catch
             { }
+
+            Console.WriteLine(JsonConvert.SerializeObject(mappings, Formatting.Indented));
 
             resulttextbox.Text = "";
 
@@ -103,7 +100,7 @@ namespace MailSolutionFinder
                 resulttextbox.Text += string.Format("{0} MX has value {1} ", address, value);
 
                 foreach (var j in mappings.mappings)
-                    if (value.Contains(j.provider.ToLower()))
+                    if (value.Contains(j.recordmatch.ToLower()))
                         resulttextbox.Text += string.Format("({0}) ", j.provider);
 
                 resulttextbox.Text += Environment.NewLine;

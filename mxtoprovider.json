@@ -2,7 +2,7 @@
   "mappings": [
     {
       "recordmatch": "mail.protection.outlook.com",
-      "provider": "(Office365"
+      "provider": "Office365"
     },
     {
       "recordmatch": "googlemail.com",
