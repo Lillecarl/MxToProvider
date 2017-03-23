@@ -9,6 +9,10 @@
       "provider": "Gmail / Google Apps"
     },
     {
+      "recordmatch": "google.com",
+      "provider": "Gmail / Google Apps"
+    },
+    {
       "recordmatch": "loopia.se",
       "provider": "Loopia"
     }
