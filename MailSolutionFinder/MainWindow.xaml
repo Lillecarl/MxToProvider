@@ -8,7 +8,7 @@
         Title="Kolla Mailleverantör" Height="401.429" Width="525">
     <Grid>
         <Label Content="E-Post address:" Margin="10,10,10,0" VerticalAlignment="Top" />
-        <TextBox x:Name="mailaddrbox" Text="carl.hjerpe@dialect.se" Height="23" Margin="10,40,10,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBox x:Name="mailaddrbox" Text="carl.hjerpe@dialect.se" Height="23" Margin="10,40,10,0" TextWrapping="Wrap" VerticalAlignment="Top" KeyDown="mailaddrbox_KeyDown" />
         <Button Content="Kolla mailleverantör" Margin="10,68,10,0" VerticalAlignment="Top" Click="Button_Click" />
         <Label Content="Resultat:" Margin="10,93,10,0" VerticalAlignment="Top" />
         <TextBox x:Name="resulttextbox" Margin="10,124,10,38" TextWrapping="Wrap" VerticalAlignment="Stretch" />

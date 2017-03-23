@@ -42,7 +42,7 @@ namespace MailSolutionFinder
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void GetDNSInfo()
         {
             var mappings = new MxMappings()
             {
@@ -106,22 +106,17 @@ namespace MailSolutionFinder
 
                 resulttextbox.Text += Environment.NewLine;
             }
+        }
 
-            /*foreach (var i in result.Answers.TxtRecords())
-            {
-                foreach (var value in i.Text)
-                {
-                    resulttextbox.Text += string.Format("{0} SPF has value {1} ", address, value);
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            GetDNSInfo();
+        }
 
-                    if (value.Contains("spf.protection.outlook.com"))
-                        resulttextbox.Text += "(Office365)";
-
-                    if (value.Contains("googlemail.com") || value.Contains("google.com"))
-                        resulttextbox.Text += "(Google Apps)";
-
-                    resulttextbox.Text += Environment.NewLine;
-                }
-            }*/
+        private void mailaddrbox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                GetDNSInfo();
         }
     }
 }
