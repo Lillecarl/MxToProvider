@@ -58,9 +58,11 @@ namespace MailSolutionFinder
 
             try
             {
+                Random random = new Random();
+
                 string contents = "";
                 using (var wc = new System.Net.WebClient())
-                    contents = wc.DownloadString("https://raw.githubusercontent.com/Lillecarl/MxToProvider/master/mxtoprovider.json");
+                    contents = wc.DownloadString(string.Format("https://raw.githubusercontent.com/Lillecarl/MxToProvider/master/mxtoprovider.json?random={0}", random.Next().ToString()));
 
                 mappings = JsonConvert.DeserializeObject<MxMappings>(contents);
             }
