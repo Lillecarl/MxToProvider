@@ -21,6 +21,10 @@
       "provider": "GleSYS (IMAP)"
     },
     {
+      "recordmatch": "remote.",
+      "provider": "Egen SBS Server?"
+    },
+    {
       "recordmatch": "loopia.se",
       "provider": "Loopia (IMAP)"
     }
