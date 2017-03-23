@@ -13,8 +13,20 @@
       "provider": "Gmail / Google Apps"
     },
     {
+      "recordmatch": "cloudmore.com",
+      "provider": "Cloudmore (Exchange)"
+    },
+    {
+      "recordmatch": "glesys",
+      "provider": "GleSYS (IMAP)"
+    },
+    {
+      "recordmatch": "remote.",
+      "provider": "Egen SBS Server?"
+    },
+    {
       "recordmatch": "loopia.se",
-      "provider": "Loopia"
+      "provider": "Loopia (IMAP)"
     }
   ]
 }
