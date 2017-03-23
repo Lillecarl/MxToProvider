@@ -35,14 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ARSoft.Tools.Net, Version=2.2.8.0, Culture=neutral, PublicKeyToken=1940454cd762ec57, processorArchitecture=MSIL">
-      <HintPath>..\packages\ARSoft.Tools.Net.2.2.8\lib\net45\ARSoft.Tools.Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="DnsClient, Version=1.0.5.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>..\packages\DnsClient.1.0.5\lib\net45\DnsClient.dll</HintPath>
       <Private>True</Private>

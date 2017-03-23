@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 
-using ARSoft.Tools.Net.Dns;
 using DnsClient;
 using Newtonsoft.Json;
 

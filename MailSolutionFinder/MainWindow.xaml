@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailSolutionFinder"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Kolla Mailleverantör" Height="401.429" Width="525">
     <Grid>
         <Label Content="E-Post address:" Margin="10,10,10,0" VerticalAlignment="Top" />
         <TextBox x:Name="mailaddrbox" Text="carl.hjerpe@dialect.se" Height="23" Margin="10,40,10,0" TextWrapping="Wrap" VerticalAlignment="Top" />
         <Button Content="Kolla mailleverantör" Margin="10,68,10,0" VerticalAlignment="Top" Click="Button_Click" />
         <Label Content="Resultat:" Margin="10,93,10,0" VerticalAlignment="Top" />
-        <TextBox x:Name="resulttextbox" Margin="10,124,10,10" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+        <TextBox x:Name="resulttextbox" Margin="10,124,10,38" TextWrapping="Wrap" VerticalAlignment="Stretch" />
+        <TextBlock Height="23" Margin="10,0,10,10" TextWrapping="Wrap" Text="Om du är osäker, fråga tekniker så kollar vi i detalj! =)" VerticalAlignment="Bottom" />
     </Grid>
 </Window>
