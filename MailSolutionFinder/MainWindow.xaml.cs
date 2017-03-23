@@ -50,7 +50,8 @@ namespace MailSolutionFinder
                 {
                     new MxMapping()
                     {
-                        recordmatch = "recordmatch", provider = "provider"
+                        recordmatch = "recordmatch",
+                        provider = "provider",
                     },
                 },
             };
@@ -97,12 +98,30 @@ namespace MailSolutionFinder
             foreach (var i in result.Answers.MxRecords())
             {
                 string value = i.Exchange.ToString().ToLower();
+                string reverse = "";
+                IPAddress reverseip = null;
+                try
+                {
+                    reverseip = lookup.Query(value, QueryType.A).Answers.ARecords().FirstOrDefault().Address;
+                    reverse = System.Net.Dns.GetHostEntry(reverseip).HostName;
+                }
+                catch { }
 
                 resulttextbox.Text += string.Format("{0} MX has value {1} ", address, value);
 
+                bool showreverse = false;
                 foreach (var j in mappings.mappings)
-                    if (value.Contains(j.recordmatch.ToLower()))
+                {
+                    if (value.Contains(j.recordmatch.ToLower()) || reverse.Contains(j.recordmatch.ToLower()))
                         resulttextbox.Text += string.Format("({0}) ", j.provider);
+
+                    // If found only by reverse, show info.
+                    if (!value.Contains(j.recordmatch.ToLower()) && reverse.Contains(j.recordmatch.ToLower()))
+                        showreverse = true;
+                }
+
+                if (showreverse)
+                    resulttextbox.Text += string.Format("{3}{0} {1} reverse has value {2} ", value, reverseip, reverse, Environment.NewLine);
 
                 resulttextbox.Text += Environment.NewLine;
             }
