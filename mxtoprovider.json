@@ -14,7 +14,7 @@
     },
     {
       "recordmatch": "cloudmore.com",
-      "provider": "Cloudmore (Exchange)"
+      "provider": "Cloudmore (Hosted Exchange)"
     },
     {
       "recordmatch": "glesys",
@@ -22,11 +22,11 @@
     },
     {
       "recordmatch": "fsdata",
-      "provider": "FSData (Exchange)"
+      "provider": "FSData (Hosted Exchange)"
     },
     {
       "recordmatch": "remote.",
-      "provider": "Egen SBS Server?"
+      "provider": "Egen SBS Server/Egen Exchange?"
     },
     {
       "recordmatch": "loopia.se",
