@@ -16,6 +16,7 @@ using System.Net;
 
 using DnsClient;
 using Newtonsoft.Json;
+using PrimS.Telnet;
 
 namespace MailSolutionFinder
 {
@@ -95,9 +96,20 @@ namespace MailSolutionFinder
             if (result.HasError)
                 resulttextbox.Text += result.ErrorMessage + Environment.NewLine;
 
+            ushort lowestmxpref = ushort.MaxValue;
+            string lowestmxhost = "";
+
             foreach (var i in result.Answers.MxRecords())
             {
-                string value = i.Exchange.ToString().ToLower();
+                string host = i.Exchange.ToString().ToLower();
+
+                if (i.Preference < lowestmxpref)
+                {
+                    lowestmxpref = i.Preference;
+                    lowestmxhost = host;
+                }
+
+                string value = host;
                 string reverse = "";
                 IPAddress reverseip = null;
                 try
@@ -124,6 +136,26 @@ namespace MailSolutionFinder
                     resulttextbox.Text += string.Format("{3}{0} {1} reverse has value {2} ", value, reverseip, reverse, Environment.NewLine);
 
                 resulttextbox.Text += Environment.NewLine;
+            }
+
+            if (lowestmxhost != "")
+            {
+                Task.Run(() =>
+                {
+                    using (Client client = new Client(lowestmxhost, 25, new System.Threading.CancellationToken()))
+                    {
+                        string smtpresponse = client.ReadAsync().Result.ToLower();
+
+                        if (smtpresponse.Contains("microsoft"))
+                        {
+                            Dispatcher.Invoke(() =>
+                            {
+                                resulttextbox.Text += string.Format("SMTP welcome identifies as Microsoft{0}", Environment.NewLine);
+                                resulttextbox.Text += string.Format("{0}{1}", smtpresponse, Environment.NewLine);
+                            });
+                        }
+                    }
+                });
             }
         }
 
